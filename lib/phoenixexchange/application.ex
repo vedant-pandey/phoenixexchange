@@ -15,6 +15,7 @@ defmodule Phoenixexchange.Application do
       # Start a worker by calling: Phoenixexchange.Worker.start_link(arg)
       # {Phoenixexchange.Worker, arg},
       {Task, fn -> Phoenixexchange.Storage.Mnesia.setup() end},
+      Phoenixexchange.Exchange.Ticker,
       # Start to serve requests, typically the last entry
       PhoenixexchangeWeb.Endpoint
     ]
