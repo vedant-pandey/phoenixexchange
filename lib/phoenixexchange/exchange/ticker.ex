@@ -1,9 +1,10 @@
 defmodule Phoenixexchange.Exchange.Ticker do
   use GenServer
+  require Logger
   alias Phoenix.PubSub
 
   @topic "ohlc:updates"
-  @tick_interval 10000
+  @tick_interval 1000
 
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, %{price: 100.0}, name: __MODULE__)

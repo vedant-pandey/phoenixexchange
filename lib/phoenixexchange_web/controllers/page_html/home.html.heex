@@ -1,11 +1,58 @@
-<div id="chart-container" role="log" aria-live="polite"></div>
-<table id="chart-table">
-  <tr>
-    <th scope="col">Open</th>
-    <th scope="col">High</th>
-    <th scope="col">Low</th>
-    <th scope="col">Close</th>
-    <th scope="col">Vol</th>
-    <th scope="col">Time</th>
-  </tr>
-</table>
+<!-- <div id="chart-container" role="log" aria-live="polite"></div> -->
+<!-- <lightweight-chart autosize style="height: 100px;"></lightweight-chart> -->
+
+<div id="container" style="height: 100%; display: flex; flex-direction: column;background-color: black;color: white;">
+  <style>
+    div {
+    border: 1px solid white;
+    word-wrap: break-word;
+    }
+  </style>
+  <div id="main-topbar" style="height: 60px;display: flex;justify-content: space-between;">
+    <div style="display: flex;">
+      <div>usericon</div>
+      <div>symbol search</div>
+      <div>duration selector</div>
+      <div>Chart type selector</div>
+      <div>Indicator selector</div>
+      <div>Indicator Set alert</div>
+    </div>
+    <div style="display: flex;">
+      <div>select layout</div>
+      <div>Omni search</div>
+      <div>Settings</div>
+      <div>full screen</div>
+      <div>Screenshot</div>
+    </div>
+  </div>
+  <div id="main-content" style="display: flex; width: 100%; height: 100%;">
+    <div id="instrument-bar" style="width: 100px;">
+      <div>cross hair</div>
+      <div>line</div>
+      <div>Fib retracement</div>
+      <div>Long position</div>
+      <div>Short position</div>
+      <div>Remove object</div>
+    </div>
+    <div id="chart-content" style="width: calc(100% - 200px);height: 100%;">
+      <div id="stock-chart" style="height: calc(100% - 50px);"><h1>Actual chart</h1></div>
+      <div id="strategy-tools" style="height: 50px;display: flex;">
+        <div>Stock screener</div>
+        <div>Strategy Editor</div>
+        <div>Strategy tester</div>
+      </div>
+    </div>
+    <div id="watchlist-content" style="width: 100px; display: flex; flex-direction: column;justify-content: space-between;">
+      <div>
+        <div>watchlist</div>
+        <div>alerts</div>
+        <div>data window</div>
+      </div>
+      <div>
+        <div>screeners</div>
+        <div>Yield curves</div>
+        <div>Options</div>
+      </div>
+    </div>
+  </div>
+</div>

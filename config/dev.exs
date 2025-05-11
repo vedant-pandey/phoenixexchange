@@ -16,7 +16,6 @@ config :phoenixexchange, PhoenixexchangeWeb.Endpoint,
   secret_key_base: "2G+c34W5wV15tjoJUSGdn4XhlN4TzcLcS6DqknJQhcgjHL43VKr2b1KH+nq9FMLK",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:phoenixexchange, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:phoenixexchange, ~w(--watch)]}
   ]
 
 # ## SSL Support
