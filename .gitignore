@@ -41,3 +41,4 @@ npm-debug.log
 *.env
 .envrc
 rel
+local_data
