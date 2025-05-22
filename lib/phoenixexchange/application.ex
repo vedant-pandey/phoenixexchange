@@ -8,13 +8,13 @@ defmodule Phoenixexchange.Application do
   def start(_type, _args) do
     children = [
       PhoenixexchangeWeb.Telemetry,
+      Phoenixexchange.Repo,
       {DNSCluster, query: Application.get_env(:phoenixexchange, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Phoenixexchange.PubSub},
       # Start the Finch HTTP client for sending emails
       {Finch, name: Phoenixexchange.Finch},
       # Start a worker by calling: Phoenixexchange.Worker.start_link(arg)
       # {Phoenixexchange.Worker, arg},
-      {Task, fn -> Phoenixexchange.Storage.Mnesia.setup() end},
       Phoenixexchange.Exchange.Ticker,
       # Start to serve requests, typically the last entry
       PhoenixexchangeWeb.Endpoint

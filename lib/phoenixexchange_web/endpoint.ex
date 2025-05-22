@@ -54,4 +54,5 @@ defmodule PhoenixexchangeWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug PhoenixexchangeWeb.Router
+  plug Phoenix.Ecto.CheckRepoStatus, otp_app: :phoenix_exchange
 end

@@ -5,13 +5,14 @@ defmodule Phoenixexchange.Exchange.Ticker do
 
   @topic "ohlc:updates"
   @tick_interval 1000
+  # @api_key System.get_env("API_KEY") || raise " environment variable API_KEY is missing. "
+  # @hostname System.get_env("PROVIDER_HOTSNAME") || raise " environment variable PROVIDER_HOTSNAME is missing. "
 
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, %{price: 100.0, timer: nil}, name: __MODULE__)
   end
 
   def init(state) do
-    # timer = schedule_tick()
     {:ok, state}
   end
 
@@ -73,43 +74,4 @@ defmodule Phoenixexchange.Exchange.Ticker do
     }
   end
 
-  defp geometric_brownian_motion(seed, initial_price, volatility, drift) do
-    :rand.seed(:exsss, {seed, seed * 2, seed * 3})
-
-    Enum.reduce([initial_price], fn acc ->
-      last_price = hd(acc)
-      random_factor = :rand.normal(0, 1)
-      new_price = last_price * :math.exp(drift - 0.5 * volatility + volatility * random_factor)
-      [new_price | acc]
-    end)
-    |> Enum.reverse()
-  end
-
-  defp generate_ohlc_from_close(yesterday_close, today_close, volatility, seed_offset) do
-    # Add randomness based on seed offset to avoid pattern repetition
-    local_seed = seed_offset * 10000
-    :rand.seed(:exsss, {local_seed, local_seed * 2, local_seed * 3})
-
-    # Determine daily range based on volatility
-    daily_range = today_close * volatility * (0.5 + :rand.uniform())
-
-    # Open typically gaps from previous close
-    open_change = today_close * volatility * 0.2 * :rand.normal(0, 1)
-    open = yesterday_close + open_change
-
-    # High and low based on range
-    high = max(open, today_close) + daily_range * :rand.uniform() * 0.5
-    low = min(open, today_close) - daily_range * :rand.uniform() * 0.5
-
-    # Volume correlates with volatility
-    volume = round(1000 * (1.0 + abs(today_close - yesterday_close) / yesterday_close * 20))
-
-    %{
-      open: Float.round(open, 2),
-      high: Float.round(high, 2),
-      low: Float.round(low, 2),
-      close: Float.round(today_close, 2),
-      volume: volume
-    }
-  end
 end

@@ -8,6 +8,7 @@
 import Config
 
 config :phoenixexchange,
+  ecto_repos: [Phoenixexchange.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
@@ -59,9 +60,6 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
-
-config :mnesia,
-  dir: ~c".data/mnesia/#{Mix.env()}"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
