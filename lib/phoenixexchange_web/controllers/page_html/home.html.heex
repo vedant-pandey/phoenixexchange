@@ -1,57 +1,80 @@
 <!-- <div id="chart-container" role="log" aria-live="polite"></div> -->
 <!-- <lightweight-chart autosize style="height: 100px;"></lightweight-chart> -->
 
-<div id="container" style="height: 100%; display: flex; flex-direction: column;background-color: black;color: white;">
+<div id="container" style="height: 100%; display: flex; flex-direction: column;">
   <style>
     div {
-    border: 1px solid white;
-    word-wrap: break-word;
+      # border: 1px solid white;
+      word-wrap: break-word;
     }
   </style>
-  <div id="main-topbar" style="height: 60px;display: flex;justify-content: space-between;">
-    <div style="display: flex;">
-      <div>usericon</div>
-      <div>symbol search</div>
-      <div>duration selector</div>
-      <div>Chart type selector</div>
-      <div>Indicator selector</div>
-      <div>Indicator Set alert</div>
+  <div class="navbar shadow-sm flex justify-between min-h-[40px] p-0" id="main-topbar">
+    <div class="flex">
+      <%= Enum.map(
+        [ 
+          %{cont: "" , tip: "usericon" , icon: "layout" , class: "w-7 h-7 stroke-1" },
+          %{cont: "" , tip: "symbol search" , icon: "layout" , class: "w-7 h-7 stroke-1" },
+          %{cont: "" , tip: "duration search" , icon: "layout" , class: "w-7 h-7 stroke-1" },
+          %{cont: "" , tip: "Chart type selector" , icon: "candlestick" , class: "w-7 h-7 stroke-1" },
+          %{cont: "" , tip: "Indicator selector" , icon: "layout" , class: "w-7 h-7 stroke-1" },
+          %{cont: "" , tip: "Indicator set selector" , icon: "layout" , class: "w-7 h-7 stroke-1" },
+        ], fn elm -> %>
+        <.icon_button 
+          class="btn btn-s btn-ghost tooltip tooltip-bottom z-10"
+          tip={elm.tip}
+          icon={elm.icon}
+          icon_class={elm.class}
+          cont={elm.cont}
+          />
+      <% end) %>
     </div>
-    <div style="display: flex;">
-      <div>select layout</div>
-      <div>Omni search</div>
-      <div>Settings</div>
-      <div>full screen</div>
-      <div>Screenshot</div>
+    <div class="flex">
+      <%= Enum.map(
+        [ 
+          %{cont: "", tip: "Select layout" , icon: "layout" , class: "w-7 h-7 stroke-1" },
+          %{cont: "", tip: "Omni search" , icon: "search" , class: "w-7 h-7 stroke-1" },
+          %{cont: "", tip: "Settings" , icon: "settings" , class: "w-7 h-7 stroke-1" },
+          %{cont: "", tip: "Full screen" , icon: "maximize" , class: "w-7 h-7 stroke-1" },
+          %{cont: "", tip: "Screenshot" , icon: "camera" , class: "w-7 h-7 stroke-1" }
+        ], fn elm -> %>
+        <.icon_button 
+          class="btn btn-s btn-ghost tooltip tooltip-bottom z-10"
+          tip={elm.tip}
+          icon={elm.icon}
+          icon_class={elm.class}
+          cont={elm.cont}
+          />
+        <% end) %>
     </div>
   </div>
-  <div id="main-content" style="display: flex; width: 100%; height: 100%;">
-    <div id="instrument-bar" style="width: 100px;">
-      <div>cross hair</div>
-      <div>line</div>
-      <div>Fib retracement</div>
-      <div>Long position</div>
-      <div>Short position</div>
-      <div>Remove object</div>
+  <div id="main-content" class="flex w-full h-full">
+    <div id="instrument-bar" class="w-[100px]">
+      <%= for cont <- [ "cross hair" , "line" , "Fib retracement" , "Long position" , "Short position" , "Remove object"
+        ] do %>
+        <span class="btn btn-ghost w-full">{cont}</span>
+        <% end %>
     </div>
     <div id="chart-content" style="width: calc(100% - 200px);height: 100%;">
-      <div id="stock-chart" style="height: calc(100% - 50px);"><h1>Actual chart</h1></div>
-      <div id="strategy-tools" style="height: 50px;display: flex;">
-        <div>Stock screener</div>
-        <div>Strategy Editor</div>
-        <div>Strategy tester</div>
+      <div id="stock-chart" style="height: calc(100% - 50px);">
+        <lightweight-chart></lightweight-chart>
+      </div>
+      <div id="strategy-tools" style="height: 50px;display: flex">
+        <%= for cont <- [ "Stock screener" , "Strategy Editor" , "Strategy tester" ] do %>
+          <span class="btn btn-ghost">{cont}</span>
+          <% end %>
       </div>
     </div>
-    <div id="watchlist-content" style="width: 100px; display: flex; flex-direction: column;justify-content: space-between;">
+    <div id="watchlist-content"
+      style="width: 100px; display: flex; flex-direction: column;justify-content: space-between;">
       <div>
-        <div>watchlist</div>
-        <div>alerts</div>
-        <div>data window</div>
+        <%= for cont <- [ "watchlist" , "alerts" , "data window" ] do %>
+          <span class="btn btn-ghost w-full">{cont}</span>
+          <% end %>
       </div>
       <div>
-        <div>screeners</div>
-        <div>Yield curves</div>
-        <div>Options</div>
+        <%= for cont <- [ "screeners" , "Yield curves" , "Options" ] do %>
+          <span class="btn btn-ghost w-full">{cont}</span>
+          <% end %>
       </div>
     </div>
   </div>
