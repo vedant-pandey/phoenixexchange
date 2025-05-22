@@ -89,6 +89,8 @@ defmodule PhoenixexchangeWeb do
       import Phoenix.HTML
       # Core UI components
       import PhoenixexchangeWeb.CoreComponents
+      import PhoenixexchangeWeb.Icons
+      import PhoenixexchangeWeb.MyComponents
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
