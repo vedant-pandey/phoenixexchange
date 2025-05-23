@@ -7,8 +7,8 @@ defmodule Phoenixexchange.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      PhoenixexchangeWeb.Telemetry,
       Phoenixexchange.Repo,
+      PhoenixexchangeWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:phoenixexchange, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Phoenixexchange.PubSub},
       # Start the Finch HTTP client for sending emails

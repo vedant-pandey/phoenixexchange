@@ -10,3 +10,4 @@ services:
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
       - "./local_data:/var/lib/postgresql/data"
+      - "./nasdaq-100.csv:/var/tmp/loader.csv"
