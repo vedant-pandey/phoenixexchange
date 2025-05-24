@@ -30,19 +30,14 @@ defmodule Phoenixexchange.Exchange.Ticker do
   def handle_info({:tick, initial_price}, state) do
     if state.timer, do: Process.cancel_timer(state.timer)
 
-    new_ohlc = generate_ohlc(state.price_id)
+    new_ohlc = generate_ohlc(1)
 
     PubSub.broadcast(Phoenixexchange.PubSub, @topic, {:ohlc_tick, new_ohlc})
 
     timer = schedule_tick()
 
-    {:noreply, %{state | price: initial_price, timer: timer, price_id: state.price_id + 1}}
+    {:noreply, %{state | price: initial_price, timer: timer, price_id: 1}}
   end
-
-  # def handle_info({:tick, initial_price, seed, volatility}, state) do
-  #   Logger.debug("Initial price #{initial_price} | seed #{seed} | volatility #{volatility}")
-  #   {:noreply, state}
-  # end
 
   def handle_info(_, state) do
     Logger.debug("no op")
